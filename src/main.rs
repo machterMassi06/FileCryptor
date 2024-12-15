@@ -8,7 +8,7 @@ fn main(){
     
     let matches = Command::new("FileCryptor")
         .version("0.1.0")
-        .author("Massinissa MACHTER")
+        .author("MassMACH")
         .about("Chiffrement et déchiffrement de fichiers avec AES-128")
         .arg(Arg::new("mode")
             .long("mode")
