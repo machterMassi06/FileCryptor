@@ -26,7 +26,16 @@ Elle utilise l'algorithme **AES-256-GCM**, qui garantit un chiffrement rapide et
 2. Construisez le projet :
     ```bash
     cargo build --release
+### **Demo** :
+1. Chiffrement d'un fichier :  
+   ```bash
+   cargo run -- --mode encrypt --input <chemin_vers_fichier_input> --output <chemin_vers_fichier_output> --key <clé_de_chiffrement>
+   Exemple :
+   cargo run -- --mode encrypt --input ..\tests\test.txt  --output ..\tests\test_encr.txt --key maSuperclefde16c
 
-
+2. Déchiffrement d'un fichier en utilisant la clef:
+    ```bash
+    A venir 
+    
 ## **A propos**
 J'ai développé **FileCryptor** dans le cadre d'un projet personnel pour approfondir les compétences en sécurité informatique et Rust.
