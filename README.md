@@ -3,7 +3,7 @@ Un outil simple de chiffrement et déchiffrement de fichiers, développé en Rus
 
 ## **Description**  
 **FileCryptor** est une application en ligne de commande (CLI) permettant de chiffrer et de déchiffrer des fichiers de manière sécurisée.  
-Elle utilise l'algorithme **AES-256-GCM**, qui garantit un chiffrement rapide et fiable pour protéger vos données sensibles.  
+Elle utilise l'algorithme **AES-128**, qui garantit un chiffrement rapide et fiable pour protéger vos données sensibles.  
 
 ### **Fonctionnalités principales** :
 - **Chiffrement** : Transforme un fichier en un fichier chiffré illisible sans la clé de déchiffrement.
