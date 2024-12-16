@@ -20,8 +20,9 @@ pub fn encrypt_file(input_f :&str,output_f:&str,key:&[u8]){
     // Chiffrement des donnes de fichier 
     let encrypted_data=chiff.encrypt_vec(&data);
 
-    // Sauvgarder les donnes chiffrés dans le fichier output 
+    // Sauvegarde dans le fichier de sortie : IV + données chiffrées 
     let mut file_output =File::create(output_f).expect("ERR Lors de la creation de fichier {output_f}");
+    output_file.write_all(&iv).expect("ERR Lors de l'écriture de l'IV dans le fichier!"); 
     file_output.write_all(&encrypted_data).expect("ERR lors d'ecriture dans le fichier {output_f}");
 
     println!("Chiffrement de fichier {input_f} effectué avec succès dans le fichier : {output_f} .");
