@@ -48,9 +48,9 @@ fn main(){
         "encrypt" => {
             encrypt::encrypt_file(input, output, key);
         },
-        /*"decrypt" => {
-            decrypt::decrypt_file(input, output, key)?;
-        }*/
+        "decrypt" => {
+            decrypt::decrypt_file(input, output, key);
+        },
         _ => {
             println!("Mode invalide. Utilisez 'encrypt' ou 'decrypt'.");
             
