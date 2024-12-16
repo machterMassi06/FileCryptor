@@ -1,5 +1,4 @@
 use clap::{Command, Arg};
-
 mod encrypt;
 mod decrypt;
 mod utils;
@@ -13,46 +12,52 @@ fn main(){
         .arg(Arg::new("mode")
             .long("mode")
             .required(true)
-            .value_parser(["encrypt", "decrypt"])  
-            .help("Mode d'opération : encrypt ou decrypt"))
+            .value_parser(["encrypt", "decrypt","generate-key"])  
+            .help("Mode d'opération : encrypt ou decrypt ou generate-key"))
         .arg(Arg::new("input")
             .long("input")
-            .required(true)
+            .required(false)
             .value_parser(clap::value_parser!(String)) 
-            .help("Chemin vers le fichier à traiter"))
+            .help("Chemin vers le fichier à traiter (requis pour encrypt et decrypt)"))
         .arg(Arg::new("output")
             .long("output")
             .required(true)
             .value_parser(clap::value_parser!(String)) 
-            .help("Chemin vers le fichier de sortie"))
+            .help("Chemin vers le fichier de sortie (requis pour encrypt et decrypt et generate-key)"))
         .arg(Arg::new("key")
             .long("key")
-            .required(true)
+            .required(false)
             .value_parser(clap::value_parser!(String)) 
             .help("Clé de chiffrement de 16 octets (128 bits)"))
         .get_matches();
 
     // Récupérer les valeurs des arguments
     let mode = matches.get_one::<String>("mode").unwrap();
-    let input = matches.get_one::<String>("input").unwrap();
-    let output = matches.get_one::<String>("output").unwrap();
-    let key = matches.get_one::<String>("key").unwrap().as_bytes();
 
-    // Vérifier si la clé fait 16 octets 
-    if key.len() != 16 {
-        println!("La clé doit être de 16 octets pour AES-128.");
-    }
 
-    //déterminer le mode (chiffrement/déchiffrement)
+
+
+    //déterminer le mode (chiffrement/déchiffrement ou Generation de clé)
     match mode.as_str() {
-        "encrypt" => {
-            encrypt::encrypt_file(input, output, key);
+        "encrypt" | "decrypt" => {
+            let input = matches.get_one::<String>("input").unwrap();
+            let output = matches.get_one::<String>("output").unwrap();
+            let key = matches.get_one::<String>("key").unwrap().as_bytes();
+            utils::check_key_is_16_o(key).expect("La clé doit être de 16 octets!");
+            match mode.as_str(){
+                "encrypt"=> encrypt::encrypt_file(input, output, key),
+                "decrypt"=> decrypt::decrypt_file(input, output, key),
+                _ => unreachable!(),
+            }
+            
         },
-        "decrypt" => {
-            decrypt::decrypt_file(input, output, key);
+        "generate-key"=>{
+            let output = matches.get_one::<String>("output").unwrap();
+            let key=utils::generate_key();
+            utils::save_key_to_file(&key,output);
         },
         _ => {
-            println!("Mode invalide. Utilisez 'encrypt' ou 'decrypt'.");
+            println!("Mode invalide. Utilisez 'encrypt' ou 'decrypt' ou 'generate-key'.");
             
         },
     }
