@@ -35,7 +35,10 @@ Elle utilise l'algorithme **AES-128**, qui garantit un chiffrement rapide et fia
 
 2. Déchiffrement d'un fichier en utilisant la clef:
     ```bash
-    A venir 
+   cargo run -- --mode decrypt --input <chemin_vers_fichier_input> --output <chemin_vers_fichier_output> --key <clé_de_chiffrement_init>
+   Exemple :
+   cargo run -- --mode decrypt --input ..\tests\test_encr.txt  --output ..\tests\test_decr.txt --key maSuperclefde16c
+ 
     
 ## **A propos**
 J'ai développé **FileCryptor** dans le cadre d'un projet personnel pour approfondir les compétences en sécurité informatique et Rust.
